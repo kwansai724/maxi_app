@@ -12,9 +12,6 @@ jobs:
     - name: Setup docker
       shell: bash
       run: |
-        # 必要なアップデート
-        docker-compose run api yarn install --check-files
-        docker-compose run api yarn upgrade
         # イメージのビルド
         docker-compose build
         # データベースの作成
@@ -22,6 +19,11 @@ jobs:
       env:
         RAILS_ENV: test
 
+    # rubocop実行
+    - name: Run rubocop
+      run: docker-compose run --rm api bundle exec rubocop
+
+    # Rspec実行
     - name: Run RSpec
       shell: bash
       run:  |
