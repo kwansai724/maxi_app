@@ -17,6 +17,10 @@ jobs:
         docker-compose up -d
       env:
         RAILS_ENV: test
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_USERNAME: root
+        MYSQL_PASSWORD: password
+        MYSQL_HOST: db
 
     # rubocop実行
     - name: Run rubocop
