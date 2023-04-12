@@ -1,0 +1,84 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+@import "bootstrap";
+
+.background {
+  background-image: url("background_image.jpeg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* ハンバーガーメニューのスタイリング */
+.navbar-toggler {
+  // ハンバーガーメニューをクリックした後に表示される枠線を消す
+  &:focus {
+    box-shadow:none !important;
+  }
+  margin-right: 20px;
+}
+
+/* ハンバーガーメニューの三本線 */
+.navbar-dark .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgb(255, 255, 255)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* ヘッダータイトル */
+.nav-title {
+  margin-left: 20px;
+}
+
+.nav-link {
+  color: rgb(72, 72, 72) !important;
+}
+
+// max-width
+.mw-md {
+  max-width: 576px;
+}
+
+.mw-xl {
+  max-width: 1200px;
+}
+
+// 「ログインしました」などのフラッシュ用スタイル
+.alert-notice {
+  @extend .alert-info;
+}
+
+.alert-alert {
+  @extend .alert-danger;
+}
+
+.navbar {
+  background-color: rgb(61, 61, 61);
+}
+
+a.navbar-brand {
+  font-family: serif;
+  font-weight: 800;
+}
+
+.nav-link a {
+  color: black;
+  text-decoration: underline;
+}
+
+.nav-link a:hover {
+  color: blue;
+}
