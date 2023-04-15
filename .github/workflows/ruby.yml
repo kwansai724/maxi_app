@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+
     # Docker起動
     - name: Build and up docker
       run: |
@@ -18,7 +18,7 @@ jobs:
         docker-compose up -d
 
     - name: sleep for waiting launch db
-      run: sleep 1m
+      run: sleep 30
 
     # rubocop実行
     - name: Run rubocop
