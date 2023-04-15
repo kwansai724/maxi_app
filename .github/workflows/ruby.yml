@@ -3,7 +3,7 @@ name: Ruby
 on: [push]
 
 jobs:
-  test:
+  build:
 
     runs-on: ubuntu-latest
 
@@ -22,10 +22,9 @@ jobs:
     - name: Run rubocop
       run: docker-compose run --rm api bundle exec rubocop
 
-    # GitHub Actions実行時のみ、db:createに失敗するため一旦コメントアウト
-    # # Rspec実行
-    # - name: Run rspec
-    #   run: |
-    #     docker-compose run --rm api bundle exec rails db:create
-    #     docker-compose run --rm api bundle exec rails db:migrate:reset
-    #     docker-compose run --rm api bundle exec rspec
+    # Rspec実行
+    - name: Run rspec
+      run: |
+        docker-compose run --rm api bundle exec rails db:create
+        docker-compose run --rm api bundle exec rails db:migrate:reset
+        docker-compose run --rm api bundle exec rspec
