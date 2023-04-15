@@ -25,6 +25,9 @@ jobs:
     # Rspec実行
     - name: Run rspec
       run: |
+        puts "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー"
+        puts ENV.fetch("MYSQL_USERNAME")
+        puts "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー"
         docker-compose run --rm api bundle exec rails db:create
         docker-compose run --rm api bundle exec rails db:migrate:reset
         docker-compose run --rm api bundle exec rspec
