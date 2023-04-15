@@ -15,8 +15,6 @@ jobs:
         docker-compose down
         docker-compose build
         docker-compose up -d
-      env:
-        RAILS_ENV: test
 
     # rubocop実行
     - name: Run rubocop
@@ -25,9 +23,11 @@ jobs:
     # Rspec実行
     - name: Run rspec
       run: |
-        puts "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー"
-        puts ENV.fetch("MYSQL_USERNAME")
-        puts "ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー"
         docker-compose run --rm api bundle exec rails db:create
         docker-compose run --rm api bundle exec rails db:migrate:reset
         docker-compose run --rm api bundle exec rspec
+      env:
+        PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+        MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
+        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+        MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
