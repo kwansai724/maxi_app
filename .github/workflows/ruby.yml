@@ -13,12 +13,12 @@ jobs:
     # Docker起動
     - name: Build and up docker
       run: |
-        docker-compose down --rmi all --volumes --remove-orphans
+        docker-compose down
         docker-compose build
         docker-compose up -d
       env:
-        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-        MYSQL_ROOT_HOST: ${{ secrets.MYSQL_ROOT_HOST }}
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_ROOT_HOST: '%'
         RAILS_ENV: test
 
     - name: sleep for waiting launch db
