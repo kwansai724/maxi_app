@@ -16,9 +16,12 @@ jobs:
         docker-compose down
         docker-compose build
         docker-compose up -d
+        docker-compose run --rm api bundle exec rails db:create
+        docker-compose run --rm api bundle exec rails db:migrate:reset
       env:
         MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
         MYSQL_ROOT_HOST: ${{ secrets.MYSQL_ROOT_HOST }}
+        RAILS_ENV: test
 
     - name: sleep for waiting launch db
       run: sleep 30
@@ -30,6 +33,6 @@ jobs:
     # Rspec実行
     - name: Run rspec
       run: |
-        docker-compose run --rm api bundle exec rails db:create
-        docker-compose run --rm api bundle exec rails db:migrate:reset
         docker-compose run --rm api bundle exec rspec
+      env: 
+        RAILS_ENV: test
