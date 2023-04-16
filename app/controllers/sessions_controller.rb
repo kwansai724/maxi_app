@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :login_required
+  skip_before_action :verify_authenticity_token # postmanでログインできる様にするため
 
   def new
     @user = User.new
@@ -21,7 +22,7 @@ class SessionsController < ApplicationController
     reset_session
     respond_to do |format|
       # status: :see_other が必須！！
-      format.html { redirect_to root_path, notice: 'ログアウトしました。', status: :see_other }
+      format.html { redirect_to root_path, notice: 'ログアウトしました', status: :see_other }
       format.json { head :no_content }
     end
   end

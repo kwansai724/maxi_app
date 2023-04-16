@@ -3,29 +3,35 @@ name: Ruby
 on: [push]
 
 jobs:
-  test:
+  build:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
+
     # Docker起動
     - name: Build and up docker
       run: |
-        docker-compose down
-        docker-compose build
-        docker-compose up -d
+        docker-compose -f docker-compose.yml down
+        docker volume prune -f
+        docker-compose -f docker-compose.yml build
+        docker-compose -f docker-compose.yml up -d
       env:
         RAILS_ENV: test
+
+    - name: sleep for waiting launch db
+      run: sleep 30
 
     # rubocop実行
     - name: Run rubocop
       run: docker-compose run --rm api bundle exec rubocop
 
-    # GitHub Actions実行時のみ、db:createに失敗するため一旦コメントアウト
-    # # Rspec実行
-    # - name: Run rspec
-    #   run: |
-    #     docker-compose run --rm api bundle exec rails db:create
-    #     docker-compose run --rm api bundle exec rails db:migrate:reset
-    #     docker-compose run --rm api bundle exec rspec
+    # Rspec実行
+    - name: Run rspec
+      run: |
+        docker-compose -f docker-compose.yml run --rm api bundle exec rails db:create
+        docker-compose -f docker-compose.yml run --rm api bundle exec rails db:migrate:reset
+        docker-compose -f docker-compose.yml run --rm api bundle exec rspec
+      env: 
+        RAILS_ENV: test
