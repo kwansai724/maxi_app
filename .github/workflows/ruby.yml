@@ -35,8 +35,3 @@ jobs:
         docker-compose -f docker-compose.yml run --rm api bundle exec rspec
       env: 
         RAILS_ENV: test
-        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-        MYSQL_ROOT_HOST: ${{ secrets.MYSQL_ROOT_HOST }}
-        MYSQL_USERNAME: ${{ secrets.MYSQL_USERNAME }}
-        MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
-        MYSQL_HOST: ${{ secrets.MYSQL_HOST }}
