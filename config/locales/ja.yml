@@ -1,0 +1,6 @@
+ja:
+  activemodel:
+    attributes:
+      sessions_form:
+        email: メールアドレス
+        password: パスワード
