@@ -16,6 +16,7 @@ class SessionsForm < ApplicationForm
 
   def save!
     return false if invalid?
+
     true
-  end 
+  end
 end
