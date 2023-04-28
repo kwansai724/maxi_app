@@ -2,10 +2,13 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def edit
+    @users_form = UsersForm.new(user: @user)
   end
 
   def update
-    if @user.update!(user_params)
+    @users_form = UsersForm.new(update_params, user: @user)
+
+    if @users_form.save!
       redirect_to root_path, notice: '編集を保存しました'
     else
       render :edit
@@ -14,7 +17,7 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
+  def update_params
     params.require(:user).permit(:name, :email)
   end
 

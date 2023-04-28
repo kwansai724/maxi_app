@@ -3,18 +3,19 @@ class SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token # postmanでログインできる様にするため
 
   def new
-    @user = User.new
+    @session = SessionsForm.new
   end
 
   def create
-    user = User.find_by(email: params[:email])
+    @session = SessionsForm.new(session_params)
+    user = User.find_by(email: @session.email)
 
-    if user&.authenticate(params[:password])
+    if @session.save! && user&.authenticate(@session.password)
       session[:user_id] = user.id
 
       redirect_to root_path, notice: 'ログインしました'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -25,5 +26,9 @@ class SessionsController < ApplicationController
       format.html { redirect_to root_path, notice: 'ログアウトしました', status: :see_other }
       format.json { head :no_content }
     end
+  end
+
+  def session_params
+    params.require(:sessions_form).permit(:email, :password)
   end
 end
