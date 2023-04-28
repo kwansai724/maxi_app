@@ -8,15 +8,17 @@ class SessionsForm < ApplicationForm
 
   validate :valid_combination
 
-  # ユーザーが見つからない、またはパスワードに誤りがある場合にエラーを返す
-  def valid_combination
-    @user = User.find_by(email: email)
-    errors.add(:base, 'メールアドレスとパスワードの組み合わせが正しくありません') unless @user&.authenticate(password)
-  end
-
   def save!
     return false if invalid?
 
     true
+  end
+
+  private
+
+  # ユーザーが見つからない、またはパスワードに誤りがある場合にエラーを返す
+  def valid_combination
+    @user = User.find_by(email: email)
+    errors.add(:base, 'メールアドレスとパスワードの組み合わせが正しくありません') unless @user&.authenticate(password)
   end
 end
