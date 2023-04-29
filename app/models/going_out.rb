@@ -1,0 +1,2 @@
+class GoingOut < ApplicationRecord
+end

@@ -1,0 +1,38 @@
+<h1 class='text-light mb-4'>お出かけスポット一覧</h1>
+
+<%= form_with(model: @search_form, url: search_going_outs_path, local: true, method: :get) do |f| %>
+  <div class='d-flex'>
+    <div class='col-2'>
+      <%= f.date_field :start_day, class: 'form-control' %>
+    </div>
+    <div class='ms-3 me-3 mt-2'>〜</div>
+    <div class='col-2'>
+      <%= f.date_field :finish_day, class: 'form-control' %>
+    </div>
+    <div class='ms-2 mt-2'>
+      <%= f.select :is_stay, [['宿泊', true], ['日帰り', false]], include_blank: "選択して下さい", class: 'form-control' %>
+    </div>
+    <div class='ms-2'>
+      <%= f.submit "検索", class: "btn btn-primary btn-block" %>
+    </div>
+    <div class='text-light ms-5 mt-2'><%= @going_outs.count %>件</div>
+  </div>
+<% end %>
+
+<div class='text-light'>
+  <div class='row mt-3 mb-3'>
+    <div class='col-2'>日付</div>
+    <div class='col-3'>場所</div>
+    <div class='col-2'>宿泊or日帰り</div>
+    <div class='col-5'>備考</div>
+  </div>
+  
+  <div class='row'>
+    <% @going_outs.each do |going_out| %>
+      <div class='col-2 mb-2'><%= going_out.going_out_day.strftime('%Y/%m/%d') %></div>
+      <div class='col-3 mb-2'><%= going_out.place %></div>
+      <div class='col-2 mb-2'><%= going_out.is_stay ? '宿泊' : '日帰り' %></div>
+      <div class='col-5 mb-2'><%= going_out.remarks %></div>
+    <% end %>
+  </div>
+</div>

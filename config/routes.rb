@@ -6,4 +6,9 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   resources :users, only: [:edit, :update]
+  resources :going_outs do
+    collection do
+      get '/search', to: 'going_outs#search'
+    end
+  end
 end

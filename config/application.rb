@@ -28,6 +28,8 @@ module MaxiApp
 
     config.generators do |g|
       g.helper false
+      g.test_framework :rspec,
+        view_specs: false
     end
   end
 end
