@@ -8,6 +8,8 @@ class GoingOutsController < ApplicationController
     search_form = GoingOuts::SearchForm.new(search_params)
     @period = search_form.attributes
     @going_outs = search_form.search
+
+    render :index
   end
 
   def show

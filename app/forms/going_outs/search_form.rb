@@ -6,7 +6,7 @@ module GoingOuts
 
     def search
       going_outs = GoingOut.where(going_out_day: start_day..finish_day)
-      going_outs = going_outs.where(is_stay: is_stay) unless is_stay == nil
+      going_outs = going_outs.where(is_stay: is_stay) unless is_stay.nil?
 
       going_outs
     end
