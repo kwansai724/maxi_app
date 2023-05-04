@@ -26,6 +26,7 @@ group :development, :test do
   gem "spring-commands-rspec"
   gem "factory_bot_rails"
   gem "faker"
+  gem "pry-byebug"
 end
 
 group :development do
@@ -33,6 +34,5 @@ group :development do
   gem "rubocop", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
-  gem "pry-byebug"
 end
 
