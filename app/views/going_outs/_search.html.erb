@@ -1,0 +1,56 @@
+<!--検索した場合-->
+<% if period.present? %>
+  <div class='text-light d-flex'>
+    <div class='ms-3 me-3'>選択期間：</div>
+    <div class='me-3'>
+      <%= period["start_day"].present? ? period["start_day"]&.strftime('%Y/%m/%d') : '未選択'  %>
+    </div>
+    <div class='me-3'>〜</div>
+    <div class='me-3'>
+      <%= period["finish_day"].present? ? period["finish_day"]&.strftime('%Y/%m/%d') : '未選択'  %>
+    </div>
+    <div class='ms-5 me-5'>
+      宿泊or日帰り: <%= period["is_stay"].present? ? (period["is_stay"] ? '宿泊' : '日帰り') : '未選択'  %>
+    </div>
+    <div><%= link_to '一覧に戻る', going_outs_path, class: "btn btn-secondary btn-sm" %></div>
+    <div class='ms-4 mt-1'><%= going_outs.count %>件</div>
+  </div>
+<% else %>
+<!--検索していない場合-->
+  <%= form_with(model: search_form, url: search_going_outs_path, local: false, method: :get) do |f| %>
+    <div class='d-flex'>
+      <div class='col-2'>
+        <%= f.date_field :start_day, class: 'form-control' %>
+      </div>
+      <div class='ms-3 me-3 mt-2'>〜</div>
+      <div class='col-2'>
+        <%= f.date_field :finish_day, class: 'form-control' %>
+      </div>
+      <div class='ms-2 mt-2'>
+        <%= f.select :is_stay, [['宿泊', true], ['日帰り', false]], include_blank: "選択して下さい", class: 'form-control' %>
+      </div>
+      <div class='ms-2'>
+        <%= f.submit "検索", class: "btn btn-primary btn-block" %>
+      </div>
+      <div class='text-light ms-5 mt-2'><%= going_outs.count %>件</div>
+    </div>
+  <% end %>
+<% end %>
+
+<div class='text-light'>
+  <div class='row mt-3 mb-3'>
+    <div class='col-2'>日付</div>
+    <div class='col-3'>場所</div>
+    <div class='col-2'>宿泊or日帰り</div>
+    <div class='col-5'>備考</div>
+  </div>
+  
+  <div class='row'>
+    <% going_outs.each do |going_out| %>
+      <div class='col-2 mb-2'><%= going_out.going_out_day.strftime('%Y/%m/%d') %></div>
+      <div class='col-3 mb-2'><%= going_out.place %></div>
+      <div class='col-2 mb-2'><%= going_out.is_stay ? '宿泊' : '日帰り' %></div>
+      <div class='col-5 mb-2'><%= going_out.remarks %></div>
+    <% end %>
+  </div>
+</div>

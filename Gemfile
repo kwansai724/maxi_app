@@ -18,6 +18,7 @@ gem "sassc-rails"
 gem 'bootstrap', '~> 5.1.3'
 gem 'mini_racer'
 gem 'rails-i18n'
+gem 'kaminari'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
@@ -25,6 +26,7 @@ group :development, :test do
   gem "spring-commands-rspec"
   gem "factory_bot_rails"
   gem "faker"
+  gem "pry-byebug"
 end
 
 group :development do
@@ -32,6 +34,5 @@ group :development do
   gem "rubocop", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
-  gem "pry-byebug"
 end
 

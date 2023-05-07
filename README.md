@@ -1,24 +1,21 @@
-# README
+# MaxiApp
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 環境（バージョン）
+- Ruby：3.1.4
+- Rails：7.0.4
+- mysql：8.0
 
-Things you may want to cover:
+## テーブル定義書
+https://docs.google.com/spreadsheets/d/13E79jGzrbywxQ0rPntmiNWIKiUAm9rp2F1KJPe4HlCQ/edit#gid=763515332
 
-* Ruby version
+### ログ出力
+```
+# railsが動いてるコンテナのIDを確認
+docker ps
+docker attach コンテナのID
+```
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### お出かけ情報取り込み
+```
+dce api rake import:going_outs
+```
