@@ -17,6 +17,7 @@ namespace :import do
     end
     puts "start to create going_outs data"
     begin
+      GoingOut.destroy_all
       GoingOut.create!(list)
       puts "completed!!"
     rescue ActiveModel::UnknownAttributeError
