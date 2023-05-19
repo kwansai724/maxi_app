@@ -11,4 +11,9 @@ Rails.application.routes.draw do
       get '/search', to: 'going_outs#search'
     end
   end
+  resources :salaries, only: [:index] do
+    collection do
+      get '/search', to: 'salaries#search'
+    end
+  end
 end

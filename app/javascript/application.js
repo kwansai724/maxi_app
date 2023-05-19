@@ -6,3 +6,5 @@ import "bootstrap"
 import jquery from "jquery"
 window.$ = jquery
 window.jQuery = jquery
+import "chartkick"
+import "Chart.bundle"

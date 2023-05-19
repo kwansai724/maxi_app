@@ -1,0 +1,47 @@
+<% if search_attributes.present? %>
+  <div class='text-light d-flex'>
+    <div class='ms-3 me-1'>収入源：</div>
+    <div class='me-3'>
+      <%= search_attributes["source_of_income"].present? ? search_attributes["source_of_income"] : '未選択'  %>
+    </div>
+    <div class='ms-3 me-1'>年度：</div>
+    <div class='me-3'>
+      <%= search_attributes["year"].present? ? search_attributes["year"] : '未選択'  %>
+    </div>
+    <div class='ms-3 me-1'>月次：</div>
+    <div class='me-3'>
+      <%= search_attributes["monthly"].present? ? search_attributes["monthly"] : '未選択'  %>
+    </div>
+    <div><%= link_to '一覧に戻る', salaries_path, class: "btn btn-secondary btn-sm" %></div>
+  </div>
+<% else %>
+<!--検索していない場合-->
+  <%= form_with(model: search_form, url: search_salaries_path, local: false, method: :get) do |f| %>
+    <div class='text-light d-flex'>
+      <div class='me-3'>
+        <%= f.label :source_of_income %>
+        <%= f.select :source_of_income, @source_of_incomes, { include_blank: true }, class: 'form-control' %>
+      </div>
+      <div class='me-3'>
+        <%= f.label :year %>
+        <%= f.select :year, @years, { include_blank: true }, class: 'form-control' %>
+      </div>
+      <div class='me-3'>
+        <%= f.label :monthly %>
+        <%= f.select :monthly, @monthlies, { include_blank: true }, class: 'form-control' %>
+      </div>
+      <div>
+        <%= f.submit "検索", class: "btn btn-primary btn-block mt-4" %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+<div class='column-chart mt-3'>
+  <%= column_chart salaries,
+    stacked: true,
+    colors: ["#fffff", "#FF555F"], # 色を指定
+    thousands: ",", # 金額表示にする（カンマを入れる）
+    suffix: "円" # 単位を指定
+  %>
+</div>

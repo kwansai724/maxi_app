@@ -10,12 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_29_095854) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_07_123947) do
   create_table "going_outs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.date "going_out_day", null: false, comment: "お出かけ日"
     t.string "place", null: false, comment: "場所"
     t.boolean "is_stay", default: false, null: false, comment: "宿泊フラグ"
     t.text "remarks", comment: "備考"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "salaries", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "amount_of_sales", default: 0, null: false, comment: "売上高"
+    t.string "source_of_income", null: false, comment: "収入源"
+    t.string "year", null: false, comment: "年度"
+    t.string "monthly", null: false, comment: "月次"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

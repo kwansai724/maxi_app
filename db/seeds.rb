@@ -19,3 +19,14 @@ CSV.foreach('db/csv/going_outs.csv', headers: true) do |row|
   )
 end
 puts "GoingOut作成"
+
+# Salary作成
+CSV.foreach('db/csv/salaries.csv', headers: true) do |row|
+  Salary.create(
+    amount_of_sales: row['amount_of_sales'],
+    source_of_income: row['source_of_income'],
+    year: row['year'],
+    monthly: row['monthly']
+  )
+end
+puts "Salary作成"

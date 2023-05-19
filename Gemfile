@@ -19,6 +19,7 @@ gem 'bootstrap', '~> 5.1.3'
 gem 'mini_racer'
 gem 'rails-i18n'
 gem 'kaminari'
+gem 'chartkick'
 
 group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

@@ -4,3 +4,7 @@ ja:
       sessions_form:
         email: メールアドレス
         password: パスワード
+      salaries/search_form:
+        source_of_income: 収入源
+        year: 年度
+        monthly: 月次
