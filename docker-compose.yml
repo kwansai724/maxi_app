@@ -22,6 +22,8 @@ services:
     tty: true
   nginx:
     build:
+      args:
+        - ENVIRONMENT=local
       context: .
       dockerfile: ./nginx/Dockerfile
     volumes:
