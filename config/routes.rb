@@ -16,4 +16,8 @@ Rails.application.routes.draw do
       get '/search', to: 'salaries#search'
     end
   end
+
+  namespace :api do
+    resources :health_check, only: :index
+  end
 end

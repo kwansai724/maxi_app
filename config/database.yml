@@ -51,6 +51,7 @@ test:
 #
 production:
   <<: *default
-  database: maxi_app_production
-  username: maxi_app
-  password: <%= ENV["MAXI_APP_DATABASE_PASSWORD"] %>
+  database: maxi_app_db
+  username: <%= ENV["DB_USERNAME"] %>
+  password: <%= ENV["DB_PASSWORD"] %>
+  host: <%= ENV["DB_HOST"] %>
