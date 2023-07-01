@@ -1,14 +1,12 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:924338382227:task-definition/maxi_app_task:7",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:924338382227:task-definition/maxi_app_task:17",
   "containerDefinitions": [
       {
           "name": "maxi_app_api",
-          "image": "<IMAGE1_NAME>",
+          "image": "<API_IMAGE_NAME>",
           "cpu": 0,
           "portMappings": [],
           "essential": true,
-          "entryPoint": [],
-          "command": [],
           "environment": [
               {
                   "name": "RAILS_LOG_TO_STDOUT",
@@ -26,11 +24,13 @@
           "mountPoints": [
               {
                   "sourceVolume": "public",
-                  "containerPath": "/maxi_app/public"
+                  "containerPath": "/maxi_app/public",
+                  "readOnly": false
               },
               {
                   "sourceVolume": "tmp",
-                  "containerPath": "/maxi_app/tmp"
+                  "containerPath": "/maxi_app/tmp",
+                  "readOnly": false
               }
           ],
           "volumesFrom": [],
@@ -46,6 +46,14 @@
               {
                   "name": "DB_USERNAME",
                   "valueFrom": "/maxi_app/db_username"
+              },
+              {
+                  "name": "MY_EMAIL",
+                  "valueFrom": "/maxi_app/my_email"
+              },
+              {
+                  "name": "MY_PASSWORD",
+                  "valueFrom": "/maxi_app/my_password"
               },
               {
                   "name": "RAILS_MASTER_KEY",
@@ -64,7 +72,7 @@
       },
       {
           "name": "maxi_app_nginx",
-          "image": "<IMAGE2_NAME>",
+          "image": "<NGINX_IMAGE_NAME>",
           "cpu": 0,
           "portMappings": [
               {
@@ -74,8 +82,6 @@
               }
           ],
           "essential": true,
-          "entryPoint": [],
-          "command": [],
           "environment": [
               {
                   "name": "ENVIRONMENT",
@@ -85,11 +91,13 @@
           "mountPoints": [
               {
                   "sourceVolume": "public",
-                  "containerPath": "/maxi_app/public"
+                  "containerPath": "/maxi_app/public",
+                  "readOnly": false
               },
               {
                   "sourceVolume": "tmp",
-                  "containerPath": "/maxi_app/tmp"
+                  "containerPath": "/maxi_app/tmp",
+                  "readOnly": false
               }
           ],
           "volumesFrom": [],
@@ -107,7 +115,7 @@
   "taskRoleArn": "arn:aws:iam::924338382227:role/ecsTaskExecutionRole",
   "executionRoleArn": "arn:aws:iam::924338382227:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
-  "revision": 7,
+  "revision": 17,
   "volumes": [
       {
           "name": "public",
@@ -165,7 +173,7 @@
       "cpuArchitecture": "X86_64",
       "operatingSystemFamily": "LINUX"
   },
-  "registeredAt": "2023-06-28T14:57:10.462Z",
+  "registeredAt": "2023-07-01T08:48:38.611Z",
   "registeredBy": "arn:aws:iam::924338382227:user/kwansai724_iam_user",
   "tags": []
 }
