@@ -1,0 +1,171 @@
+{
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:924338382227:task-definition/maxi_app_task:7",
+  "containerDefinitions": [
+      {
+          "name": "maxi_app_api",
+          "image": "<IMAGE1_NAME>",
+          "cpu": 0,
+          "portMappings": [],
+          "essential": true,
+          "entryPoint": [],
+          "command": [],
+          "environment": [
+              {
+                  "name": "RAILS_LOG_TO_STDOUT",
+                  "value": "true"
+              },
+              {
+                  "name": "RAILS_SERVE_STATIC_FILES\t",
+                  "value": "true"
+              },
+              {
+                  "name": "RAILS_ENV",
+                  "value": "production"
+              }
+          ],
+          "mountPoints": [
+              {
+                  "sourceVolume": "public",
+                  "containerPath": "/maxi_app/public"
+              },
+              {
+                  "sourceVolume": "tmp",
+                  "containerPath": "/maxi_app/tmp"
+              }
+          ],
+          "volumesFrom": [],
+          "secrets": [
+              {
+                  "name": "DB_HOST",
+                  "valueFrom": "/maxi_app/db_host"
+              },
+              {
+                  "name": "DB_PASSWORD",
+                  "valueFrom": "/maxi_app/db_password"
+              },
+              {
+                  "name": "DB_USERNAME",
+                  "valueFrom": "/maxi_app/db_username"
+              },
+              {
+                  "name": "RAILS_MASTER_KEY",
+                  "valueFrom": "/maxi_app/master_key"
+              }
+          ],
+          "logConfiguration": {
+              "logDriver": "awslogs",
+              "options": {
+                  "awslogs-create-group": "true",
+                  "awslogs-group": "/ecs/maxi_app_task",
+                  "awslogs-region": "ap-northeast-1",
+                  "awslogs-stream-prefix": "ecs"
+              }
+          }
+      },
+      {
+          "name": "maxi_app_nginx",
+          "image": "<IMAGE2_NAME>",
+          "cpu": 0,
+          "portMappings": [
+              {
+                  "containerPort": 80,
+                  "hostPort": 80,
+                  "protocol": "tcp"
+              }
+          ],
+          "essential": true,
+          "entryPoint": [],
+          "command": [],
+          "environment": [
+              {
+                  "name": "ENVIRONMENT",
+                  "value": "prd"
+              }
+          ],
+          "mountPoints": [
+              {
+                  "sourceVolume": "public",
+                  "containerPath": "/maxi_app/public"
+              },
+              {
+                  "sourceVolume": "tmp",
+                  "containerPath": "/maxi_app/tmp"
+              }
+          ],
+          "volumesFrom": [],
+          "logConfiguration": {
+              "logDriver": "awslogs",
+              "options": {
+                  "awslogs-group": "/ecs/maxi_app_task",
+                  "awslogs-region": "ap-northeast-1",
+                  "awslogs-stream-prefix": "ecs"
+              }
+          }
+      }
+  ],
+  "family": "maxi_app_task",
+  "taskRoleArn": "arn:aws:iam::924338382227:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::924338382227:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "revision": 7,
+  "volumes": [
+      {
+          "name": "public",
+          "host": {}
+      },
+      {
+          "name": "tmp",
+          "host": {}
+      }
+  ],
+  "status": "ACTIVE",
+  "requiresAttributes": [
+      {
+          "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+      },
+      {
+          "name": "ecs.capability.execution-role-awslogs"
+      },
+      {
+          "name": "com.amazonaws.ecs.capability.ecr-auth"
+      },
+      {
+          "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+      },
+      {
+          "name": "com.amazonaws.ecs.capability.task-iam-role"
+      },
+      {
+          "name": "ecs.capability.execution-role-ecr-pull"
+      },
+      {
+          "name": "ecs.capability.secrets.ssm.environment-variables"
+      },
+      {
+          "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+      },
+      {
+          "name": "ecs.capability.task-eni"
+      },
+      {
+          "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
+      }
+  ],
+  "placementConstraints": [],
+  "compatibilities": [
+      "EC2",
+      "FARGATE"
+  ],
+  "requiresCompatibilities": [
+      "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "runtimePlatform": {
+      "cpuArchitecture": "X86_64",
+      "operatingSystemFamily": "LINUX"
+  },
+  "registeredAt": "2023-06-28T14:57:10.462Z",
+  "registeredBy": "arn:aws:iam::924338382227:user/kwansai724_iam_user",
+  "tags": []
+}
