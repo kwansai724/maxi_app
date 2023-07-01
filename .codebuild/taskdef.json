@@ -1,5 +1,5 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:924338382227:task-definition/maxi_app_task:17",
+  "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:924338382227:task-definition/maxi_app_task:18",
   "containerDefinitions": [
       {
           "name": "maxi_app_api",
@@ -115,7 +115,7 @@
   "taskRoleArn": "arn:aws:iam::924338382227:role/ecsTaskExecutionRole",
   "executionRoleArn": "arn:aws:iam::924338382227:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
-  "revision": 17,
+  "revision": 18,
   "volumes": [
       {
           "name": "public",
