@@ -4,4 +4,5 @@ phases:
   pre_build:
     commands:
       - echo ========== RailsMigration ==========
-      - docker run --rm --env RAILS_ENV=$RAILS_ENV --env SECRET_KEY_BASE=$SECRET_KEY_BASE --env DB_HOST=$DB_HOST --env DB_NAME=$DB_NAME --env DB_USERNAME=$DB_USERNAME --env DB_PASSWORD=$DB_PASSWORD $API_REPOSITORY_URI:$IMAGE_TAG rails db:migrate
+      # - docker run --rm --env RAILS_ENV=$RAILS_ENV --env MASTER_KEY=$MASTER_KEY --env DB_HOST=$DB_HOST --env DB_NAME=$DB_NAME --env DB_USERNAME=$DB_USERNAME --env DB_PASSWORD=$DB_PASSWORD $API_REPOSITORY_URI:$IMAGE_TAG rails db:migrate
+      - docker run --rm $API_REPOSITORY_URI:$IMAGE_TAG rails db:migrate RAILS_ENV=$RAILS_ENV
