@@ -19,7 +19,7 @@ phases:
       - echo Pushing the Docker images...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPOSITORY:latest
       - echo Writing image definitions file...
-      - printf '{"Version":"1.0","ImageURI":"%s"}' $API_REPOSITORY:$IMAGE_TAG > imageDetail.json
+      - printf '{"Version":"1.0","ImageURI":"%s"}' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPOSITORY:$IMAGE_TAG > imageDetail.json
       - echo ==========================================
       - cat imageDetail.json
       - echo ==========================================
