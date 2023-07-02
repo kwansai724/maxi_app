@@ -12,16 +12,13 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build --platform=linux/x86_64 -t $API_REPOSITORY .
-      - docker tag $API_REPOSITORY:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPOSITORY:latest
+      - docker tag $API_REPOSITORY:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPOSITORY:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker images...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPOSITORY:latest
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPOSITORY:$IMAGE_TAG
       - echo Writing image definitions file...
       - printf '{"Version":"1.0","ImageURI":"%s"}' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPOSITORY:$IMAGE_TAG > imageDetail.json
-      - echo ==========================================
-      - cat imageDetail.json
-      - echo ==========================================
 artifacts:
     files: imageDetail.json
