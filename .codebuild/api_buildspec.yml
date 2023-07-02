@@ -21,4 +21,6 @@ phases:
       - echo Writing image definitions file...
       - printf '{"Version":"1.0","ImageURI":"%s"}' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPOSITORY:$IMAGE_TAG > imageDetail.json
 artifacts:
-    files: imageDetail.json
+    files: 
+      - imageDetail.json
+      - .codebuild/migration_buildspec.yml
