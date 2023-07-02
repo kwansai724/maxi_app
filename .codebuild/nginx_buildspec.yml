@@ -20,5 +20,8 @@ phases:
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$NGINX_REPOSITORY:latest
       - echo Writing image definitions file...
       - printf '{"Version":"1.0","ImageURI":"%s"}' $NGINX_REPOSITORY:$IMAGE_TAG > imageDetail.json
+      - echo ==========================================
+      - cat imageDetail.json
+      - echo ==========================================
 artifacts:
     files: imageDetail.json
