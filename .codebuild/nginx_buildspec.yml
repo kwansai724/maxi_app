@@ -19,7 +19,6 @@ phases:
       - echo Pushing the Docker images...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$NGINX_REPOSITORY:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '{"Version":"1.0","ImageURI":"%s"}' $AWS_DEFAULT_REGION.amazonaws.com/$NGINX_REPOSITORY:$IMAGE_TAG > imageDetail.json
+      - printf '{"Version":"1.0","ImageURI":"%s"}' $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$NGINX_REPOSITORY:$IMAGE_TAG > imageDetail.json
 artifacts:
     files: imageDetail.json
-    name: nginx_build_output
