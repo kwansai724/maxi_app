@@ -4,5 +4,4 @@ phases:
   pre_build:
     commands:
       - echo ========== RailsMigration ==========
-      # - docker run --rm --env RAILS_ENV=$RAILS_ENV --env MASTER_KEY=$MASTER_KEY --env DB_HOST=$DB_HOST --env DB_NAME=$DB_NAME --env DB_USERNAME=$DB_USERNAME --env DB_PASSWORD=$DB_PASSWORD $API_REPOSITORY_URI:$IMAGE_TAG rails db:migrate
       - aws ecs run-task --cluster arn:aws:ecs:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:cluster/maxi_app_cluster --task-definition maxi_app_task --launch-type FARGATE --overrides '{"containerOverrides":[{"name":"maxi_app_api","command":["rails","db:migrate"]}]}' --network-configuration "awsvpcConfiguration={subnets=[subnet-03aeda935a3b13b98,subnet-04a05f208a7e010b5],securityGroups=[sg-0c3815cfecde264e3],assignPublicIp=DISABLED}"
