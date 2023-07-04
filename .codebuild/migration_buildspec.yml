@@ -4,4 +4,4 @@ phases:
   pre_build:
     commands:
       - echo ========== RailsMigration ==========
-      - aws ecs run-task --cluster arn:aws:ecs:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:cluster/$CLUSTER_NAME --task-definition $TASK_NAME --launch-type FARGATE --overrides '{"containerOverrides":[{"name":"maxi_app_api","command":["rails","db:migrate"]}]}' --network-configuration "awsvpcConfiguration={subnets=[$SUBNET_ID_01,$SUBNET_ID_02],securityGroups=[$SECURITY_GROUP_ID_],assignPublicIp=DISABLED}"
+      - aws ecs run-task --cluster arn:aws:ecs:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:cluster/$CLUSTER_NAME --task-definition $TASK_NAME --launch-type FARGATE --overrides '{"containerOverrides":[{"name":"maxi_app_api","command":["rails","db:migrate"]}]}' --network-configuration "awsvpcConfiguration={subnets=[$SUBNET_ID_01,$SUBNET_ID_02],securityGroups=[$SECURITY_GROUP_ID],assignPublicIp=DISABLED}"
