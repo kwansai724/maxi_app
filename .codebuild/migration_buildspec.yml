@@ -3,5 +3,12 @@ version: 0.2
 phases:
   pre_build:
     commands:
+      - aws ecs update-service --cluster $CLUSTER_NAME --service maxi-app-service --task-definition $TASK_NAME --desired-count 1 --force-new-deployment --enable-execute-command  
+  build:
+    commands:
       - echo ========== RailsMigration ==========
-      - aws ecs run-task --cluster arn:aws:ecs:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:cluster/$CLUSTER_NAME --task-definition $TASK_NAME --launch-type FARGATE --overrides '{"containerOverrides":[{"name":"maxi_app_api","command":["rails","db:migrate"]}]}' --network-configuration "awsvpcConfiguration={subnets=[$SUBNET_ID_01,$SUBNET_ID_02],securityGroups=[$SECURITY_GROUP_ID],assignPublicIp=DISABLED}"
+      - aws ecs execute-command --cluster $CLUSTER_NAME --task $TASK_NAME --container maxi_app_api --interactive --command "rails db:migrate"
+  # post_build:
+  #   commands:
+  #     - echo ========== RailsMigration ==========
+  #     - aws ecs run-task --cluster arn:aws:ecs:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:cluster/$CLUSTER_NAME --task-definition $TASK_NAME --launch-type FARGATE --overrides '{"containerOverrides":[{"name":"maxi_app_api","command":["rails","db:migrate"]}]}' --network-configuration "awsvpcConfiguration={subnets=[$SUBNET_ID_01,$SUBNET_ID_02],securityGroups=[$SECURITY_GROUP_ID],assignPublicIp=DISABLED}"
