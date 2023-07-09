@@ -1,9 +1,11 @@
 version: 0.2
 
 phases:
-  # pre_build:
-  #   commands:
-  #     - aws ecs update-service --cluster $CLUSTER_NAME --service maxi-app-service --task-definition $TASK_NAME --desired-count 1 --force-new-deployment --enable-execute-command  
+  install:
+    commands:
+      # session-manager-pluginをインストール
+      - curl https://s3.amazonaws.com/session-manager-downloads/plugin/latest/ubuntu_64bit/session-manager-plugin.deb -o /tmp/session-manager-plugin.deb
+      - dpkg -i /tmp/session-manager-plugin.deb
   build:
     commands:
       - echo ========== RailsMigration ==========
