@@ -3,21 +3,5 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
-      - aws --version
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
-      - IMAGE_TAG=$CODEBUILD_RESOLVED_SOURCE_VERSION
-  build:
-    commands:
-      - echo Build started on `date`
-      - echo Building the Docker image...
-      - docker build --platform=linux/x86_64 -t $API_REPOSITORY .
-      - docker tag $API_REPOSITORY:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPOSITORY:$IMAGE_TAG
-    finally:
-      - echo Build completed on `date`
-      - echo Pushing the Docker images...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPOSITORY:$IMAGE_TAG
-  post_build:
-    commands:
       - echo ========== RailsMigration ==========
       - aws ecs run-task --cluster arn:aws:ecs:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:cluster/$CLUSTER_NAME --task-definition $TASK_NAME --launch-type FARGATE --overrides '{"containerOverrides":[{"name":"maxi_app_api","command":["rails","db:migrate"]}]}' --network-configuration "awsvpcConfiguration={subnets=[$SUBNET_ID_01,$SUBNET_ID_02],securityGroups=[$SECURITY_GROUP_ID],assignPublicIp=DISABLED}"
