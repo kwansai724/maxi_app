@@ -1,9 +1,9 @@
 version: 0.2
 
 phases:
-  pre_build:
-    commands:
-      - aws ecs update-service --cluster $CLUSTER_NAME --service maxi-app-service --task-definition $TASK_NAME --desired-count 1 --force-new-deployment --enable-execute-command  
+  # pre_build:
+  #   commands:
+  #     - aws ecs update-service --cluster $CLUSTER_NAME --service maxi-app-service --task-definition $TASK_NAME --desired-count 1 --force-new-deployment --enable-execute-command  
   build:
     commands:
       - echo ========== RailsMigration ==========
