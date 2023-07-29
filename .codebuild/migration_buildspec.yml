@@ -3,13 +3,12 @@ version: 0.2
 phases:
   install:
     commands:
-      # session-manager-pluginをインストール
-      - sudo yum install -y https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm
-      - session-manager-plugin
+      # # session-manager-pluginをインストール
+      # - sudo yum install -y https://s3.amazonaws.com/session-manager-downloads/plugin/latest/linux_64bit/session-manager-plugin.rpm
+      # - session-manager-plugin
   build:
     commands:
-      - echo ========== RailsMigration ==========
-      - aws ecs execute-command --cluster $CLUSTER_NAME --task $TASK_NAME --container maxi_app_api --interactive --command "rails db:migrate"
+      - docker-compose -f docker-compose.yml run --rm api bundle exec rails db:migrate
   # post_build:
   #   commands:
   #     - echo ========== RailsMigration ==========
