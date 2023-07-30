@@ -6,8 +6,6 @@ services:
       - .:/maxi_app
       - public:/maxi_app/public
       - tmp:/maxi_app/tmp
-    depends_on:
-      - db
     stdin_open: true
     tty: true
 volumes:
