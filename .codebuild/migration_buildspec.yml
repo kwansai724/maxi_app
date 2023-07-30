@@ -1,13 +1,13 @@
 version: 0.2
 
 phases:
+  pre_build:
+    commands:
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
   build:
     commands:
-      - echo ========== Docker Image ==========
-      - docker images
+      - docker-compose build --build-arg ENVIRONMENT=$RAILS_ENV
+  post_build:
+    commands:
       - echo ========== RailsMigration ==========
-      - docker run --rm --env RAILS_ENV=$RAILS_ENV --env SECRET_KEY_BASE=$SECRET_KEY_BASE --env DB_HOST=$DB_HOST --env DB_NAME=$DB_NAME --env DB_USERNAME=$DB_USERNAME --env DB_PASSWORD=$DB_PASSWORD $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPOSITORY:latest rails db:migrate db:seed
-  # post_build:
-  #   commands:
-  #     - echo ========== RailsMigration ==========
-  #     - aws ecs run-task --cluster arn:aws:ecs:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:cluster/$CLUSTER_NAME --task-definition $TASK_NAME --launch-type FARGATE --overrides '{"containerOverrides":[{"name":"maxi_app_api","command":["rails","db:migrate"]}]}' --network-configuration "awsvpcConfiguration={subnets=[$SUBNET_ID_01,$SUBNET_ID_02],securityGroups=[$SECURITY_GROUP_ID],assignPublicIp=DISABLED}"
+      - aws ecs run-task --cluster arn:aws:ecs:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:cluster/$CLUSTER_NAME --task-definition $TASK_NAME --launch-type FARGATE --overrides '{"containerOverrides":[{"name":"maxi_app_api","command":["rails","db:migrate"]}]}' --network-configuration "awsvpcConfiguration={subnets=[$SUBNET_ID_01,$SUBNET_ID_02],securityGroups=[$SECURITY_GROUP_ID],assignPublicIp=DISABLED}"
