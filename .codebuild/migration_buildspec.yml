@@ -1,6 +1,9 @@
 version: 0.2
 
 phases:
+  pre_build:
+      - echo ========== Docker Image ==========
+      - docker images
   build:
     commands:
       - echo ========== RailsMigration ==========
