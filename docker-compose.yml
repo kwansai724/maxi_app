@@ -12,8 +12,6 @@ services:
       - mysql-data:/var/lib/mysql
   api:
     build: .
-    environment:
-      - ENVIRONMENT=${ENVIRONMENT}
     volumes:
       - .:/maxi_app
       - public:/maxi_app/public

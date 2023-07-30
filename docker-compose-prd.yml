@@ -1,0 +1,15 @@
+version: '3'
+services:
+  api:
+    build: .
+    volumes:
+      - .:/maxi_app
+      - public:/maxi_app/public
+      - tmp:/maxi_app/tmp
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true
+volumes:
+  tmp:
+  public:
