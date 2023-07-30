@@ -1,11 +1,10 @@
 version: 0.2
 
 phases:
-  pre_build:
-      - echo ========== Docker Image ==========
-      - docker images
   build:
     commands:
+      - echo ========== Docker Image ==========
+      - docker images
       - echo ========== RailsMigration ==========
       - docker run --rm --env RAILS_ENV=$RAILS_ENV --env SECRET_KEY_BASE=$SECRET_KEY_BASE --env DB_HOST=$DB_HOST --env DB_NAME=$DB_NAME --env DB_USERNAME=$DB_USERNAME --env DB_PASSWORD=$DB_PASSWORD $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$API_REPOSITORY:latest rails db:migrate db:seed
   # post_build:
