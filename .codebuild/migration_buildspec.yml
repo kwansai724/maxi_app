@@ -8,5 +8,5 @@ phases:
   post_build:
     commands:
       - echo ========== RailsMigration ==========
-      - docker-compose -f docker-compose-prd.yml run --rm api bundle exec rails db:migrate db:seed
+      - docker-compose -f docker-compose-prd.yml exec api bundle exec rails db:migrate db:seed
       # - aws ecs run-task --cluster arn:aws:ecs:$AWS_DEFAULT_REGION:$AWS_ACCOUNT_ID:cluster/$CLUSTER_NAME --task-definition $TASK_NAME --launch-type FARGATE --overrides '{"containerOverrides":[{"name":"maxi_app_api","command":["rails","db:migrate"]}]}' --network-configuration "awsvpcConfiguration={subnets=[$SUBNET_ID_01,$SUBNET_ID_02],securityGroups=[$SECURITY_GROUP_ID],assignPublicIp=DISABLED}"
