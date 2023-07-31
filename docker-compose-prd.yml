@@ -7,7 +7,6 @@ services:
       - public:/maxi_app/public
       - tmp:/maxi_app/tmp
     stdin_open: true
-    tty: true
 volumes:
   tmp:
   public:
